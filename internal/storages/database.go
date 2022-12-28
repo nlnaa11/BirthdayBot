@@ -11,11 +11,9 @@ import (
 var (
 	createTable = `
 	CREATE TABLE IF NOT EXISTS %s (
-		userId TEXT,
 		userName TEXT,
 		name TEXT PRIMARY KEY, 
 		birthday TEXT
-		draft INTEGER
 	);
 	`
 )

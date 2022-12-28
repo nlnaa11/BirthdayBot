@@ -14,10 +14,6 @@ type ChatInfoRecord struct {
 	Database string `json:"Table"`
 }
 
-type AddedRecord struct {
-	Added []users.User `json:"Added"`
-}
-
 type RemovedRecord struct {
 	Removed []users.User `json:"Removed"`
 }
@@ -76,29 +72,6 @@ func checkChatID(path string, chatID int64) (f *os.File, err error) {
 	}
 
 	return
-}
-
-func AddedEntry(path string, chatID int64, record *AddedRecord) error {
-	f, err := checkChatID(path, chatID)
-	if err != nil {
-		return err
-	}
-	if f == nil {
-		return errors.New("a file pointer is lost")
-	}
-	defer f.Close()
-
-	if record == nil {
-		return errors.New("invalid record")
-	}
-
-	encodeJson := json.NewEncoder(f)
-	err = encodeJson.Encode(*record)
-	if err != nil {
-		return errors.Wrap(err, "adding a new users: ")
-	}
-
-	return nil
 }
 
 func RemovedEntry(path string, chatID int64, record *RemovedRecord) error {

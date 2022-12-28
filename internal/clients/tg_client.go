@@ -82,7 +82,6 @@ func (tg *TgClient) ListenUpdates(msgModel *messages.Model) {
 						name += " " + user.LastName
 					}
 					newUsers = append(newUsers, users.User{
-						UserID:   user.ID,
 						UserName: user.UserName,
 						FullName: name,
 					})
@@ -97,7 +96,6 @@ func (tg *TgClient) ListenUpdates(msgModel *messages.Model) {
 				}
 
 				oldUser = &users.User{
-					UserID:   user.ID,
 					UserName: user.UserName,
 					FullName: name,
 				}

@@ -94,23 +94,5 @@ func (h *ModelHelper) addUser(users []users.User, chatID int64) (string, error) 
 		return "", errors.New("Thare are not new users")
 	}
 
-	path, err := h.info.GetTransferFilePath(chatID)
-	if err != nil {
-		return "", err
-	}
-
-	data := storages.AddedRecord{
-		Added: users,
-	}
-	err = storages.AddedEntry(path, chatID, &data)
-	if err != nil {
-		return "", err
-	}
-
-	link, err := h.info.GetFormsLink(chatID)
-	if err != nil {
-		return "", err
-	}
-
-	return link, err
+	return h.info.GetFormsLink(chatID)
 }

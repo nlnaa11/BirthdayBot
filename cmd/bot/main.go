@@ -17,23 +17,25 @@ func main() {
 
 	var cnf *config.Service
 
+	if len(files) == 1 {
+		cnf, err = config.InitConfig()
+		if err != nil {
+			log.Fatal("config init failed: ", err)
+		}
+	}
 	if len(files) > 1 {
 		cnf, err = config.RecoverConfig()
-	}
-	else {
-		cnf, err = config.InitConfig()
-	}
-
-	if err != nil {
-		log.Fatal("config init failed: ", err)
+		if err != nil {
+			log.Fatal("config recover failed: ", err)
+		}
 	}
 
 	tgClient, err := clients.NewTgClient(cnf)
 	if err != nil {
-		log.Fatal("tg client init failed", err)
+		log.Fatal("tg client init failed: ", err)
 	}
 
-	helper := messages.NewModelHelper(config)
+	helper := messages.NewModelHelper(cnf)
 
 	msgModel := messages.NewModel(tgClient, helper)
 
